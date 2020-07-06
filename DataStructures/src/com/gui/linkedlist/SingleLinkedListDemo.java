@@ -8,11 +8,29 @@ public class SingleLinkedListDemo {
         HeroNode hero4 = new HeroNode(4, "林冲", "豹子头");
 
         SingleLinkedList singleLinkedList = new SingleLinkedList();
+        //添加节点
+//        singleLinkedList.add(hero1);
+//        singleLinkedList.add(hero3);
+//        singleLinkedList.add(hero2);
+//        singleLinkedList.add(hero4);
+//        singleLinkedList.list();
+
+        //按照节点顺序添加
         singleLinkedList.addByOrder(hero1);
         singleLinkedList.addByOrder(hero3);
         singleLinkedList.addByOrder(hero2);
         singleLinkedList.addByOrder(hero4);
-//      singleLinkedList.addByOrder(hero2);
+        singleLinkedList.list();
+
+        //测试修改节点的代码
+        HeroNode newNode = new HeroNode(2, "卢~", "玉麒麟~~");
+        singleLinkedList.update(newNode);
+        System.out.println("修改后的链表情况~");
+        singleLinkedList.list();
+
+        //测试删除链表的代码
+        singleLinkedList.delete(2);
+        System.out.println("删除节点后链表情况~");
         singleLinkedList.list();
     }
 }
@@ -48,11 +66,55 @@ class SingleLinkedList {
         }
         if (flag) {
             System.out.printf("要添加的节点%d已经存在,不能加入~\n", heroNode.no);
-        }else{
-            heroNode.next=temp.next;
-            temp.next=heroNode;
+        } else {
+            heroNode.next = temp.next;
+            temp.next = heroNode;
         }
+    }
 
+    //修改节点的信息，根据no编号来修改，即no编号不能改
+    public void update(HeroNode newNode) {
+        if (head.next == null) {
+            System.out.println("链表为空~");
+            return;
+        }
+        HeroNode temp = head.next;
+        boolean flag = false;
+        while (true) {
+            if (temp == null) {
+                break;//已经遍历完链表
+            }
+            if (temp.no == newNode.no) {
+                flag = true;
+                break;
+            }
+            temp = temp.next;
+        }
+        if (flag) {
+            temp.name = newNode.name;
+            temp.nickname = newNode.nickname;
+        } else {
+            System.out.printf("没有找到编号为 %d 的节点\n", newNode.no);
+        }
+    }
+
+    //删除节点信息
+    public void delete(int no) {
+        if (head.next == null) {
+            System.out.println("链表为空~");
+            return;
+        }
+        HeroNode temp = head;
+        while (true) {
+            if (temp.next == null) {//已经遍历到链表结尾
+                break;
+            }
+            if (temp.next.no == no) {
+                temp.next = temp.next.next;
+                break;
+            }
+            temp = temp.next;
+        }
     }
 
     //显示链表【遍历】
