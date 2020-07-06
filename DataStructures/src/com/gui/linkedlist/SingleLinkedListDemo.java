@@ -9,12 +9,17 @@ public class SingleLinkedListDemo {
 
         SingleLinkedList singleLinkedList = new SingleLinkedList();
         //添加节点
-//        singleLinkedList.add(hero1);
-//        singleLinkedList.add(hero3);
-//        singleLinkedList.add(hero2);
-//        singleLinkedList.add(hero4);
-//        singleLinkedList.list();
+        singleLinkedList.add(hero1);
+        singleLinkedList.add(hero3);
+        singleLinkedList.add(hero2);
+        singleLinkedList.add(hero4);
+        singleLinkedList.list();
 
+        //反转节点
+        reverseList(singleLinkedList.getHead());
+        System.out.println("反转后的链表情况~~");
+        singleLinkedList.list();
+/*
         //按照节点顺序添加
         singleLinkedList.addByOrder(hero1);
         singleLinkedList.addByOrder(hero3);
@@ -32,11 +37,36 @@ public class SingleLinkedListDemo {
         singleLinkedList.delete(2);
         System.out.println("删除节点后链表情况~");
         singleLinkedList.list();
+ */
+
+    }
+
+    public static void reverseList(HeroNode head) {
+        if (head.next == null || head.next.next == null) {
+            return;
+        }
+        //定义一个辅助变量，帮助我们遍历原来的链表
+        HeroNode temp = head.next;
+        HeroNode next = null;
+        HeroNode reverseHead = new HeroNode(0, "", "");
+
+        while (temp != null) {
+            next = temp.next;//先暂时保存当前节点的下一个节点，因为后面需要使用
+            temp.next = reverseHead.next;//将当前节点temp的下一个节点指向新的链表的最前端
+            reverseHead.next = temp;//将当前节点连接到新的链表上
+
+            temp = next;//将当前节点后移
+        }
+        head.next = reverseHead.next;//将head.next 指向 reverseHead.next, 实现单链表的反转
     }
 }
 
 class SingleLinkedList {
     HeroNode head = new HeroNode(0, "", "");
+
+    public HeroNode getHead() {
+        return head;
+    }
 
     public void add(HeroNode heroNode) {
         HeroNode temp = head;
