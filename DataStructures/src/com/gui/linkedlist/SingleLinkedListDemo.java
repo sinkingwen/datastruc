@@ -1,5 +1,7 @@
 package com.gui.linkedlist;
 
+import java.util.Stack;
+
 public class SingleLinkedListDemo {
     public static void main(String[] args) {
         HeroNode hero1 = new HeroNode(1, "宋江", "及时雨");
@@ -17,6 +19,9 @@ public class SingleLinkedListDemo {
 
         HeroNode knode = findLastIndexNode(singleLinkedList.getHead(), 3);
         System.out.println("查找的节点是"+knode);
+
+        System.out.println("逆序打印链表节点，不改变链表结构~");
+        reversePrint(singleLinkedList.getHead());
 
         //反转节点
         reverseList(singleLinkedList.getHead());
@@ -42,6 +47,30 @@ public class SingleLinkedListDemo {
         singleLinkedList.list();
  */
 
+    }
+
+    public static HeroNode mergeTwoSortedList(HeroNode head1,HeroNode head2){
+
+        return head1;
+    }
+
+    /**
+     * 从尾到头逆序打印链表节点
+     * @param head 链表的头节点
+     */
+    public static void reversePrint(HeroNode head){
+        if(head.next==null){
+            return;
+        }
+        Stack<HeroNode> stack = new Stack<HeroNode>();
+        HeroNode temp = head.next;
+        while (temp!=null){
+            stack.push(temp);
+            temp=temp.next;
+        }
+        while(stack.size()>0){
+            System.out.println(stack.pop());
+        }
     }
 
     /**
