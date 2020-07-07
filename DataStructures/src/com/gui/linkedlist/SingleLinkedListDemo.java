@@ -15,6 +15,9 @@ public class SingleLinkedListDemo {
         singleLinkedList.add(hero4);
         singleLinkedList.list();
 
+        HeroNode knode = findLastIndexNode(singleLinkedList.getHead(), 3);
+        System.out.println("查找的节点是"+knode);
+
         //反转节点
         reverseList(singleLinkedList.getHead());
         System.out.println("反转后的链表情况~~");
@@ -41,6 +44,45 @@ public class SingleLinkedListDemo {
 
     }
 
+    /**
+     * 获取单链表的有效节点个数，不包含头结点
+     *
+     * @param head 链表头节点
+     * @return 返回有效节点个数
+     */
+    public static int getLength(HeroNode head) {
+        if (head.next == null) {
+            return 0;
+        }
+        int length = 0;
+        HeroNode temp = head.next;
+        while (temp != null) {
+            length++;
+            temp = temp.next;
+        }
+        return length;
+    }
+
+    public static HeroNode findLastIndexNode(HeroNode head, int k) {
+        if (head.next == null) {
+            return null;//判断链表是否空，是，返回null
+        }
+        int size = getLength(head);
+        if (k <= 0 || k > size) {
+            return null;
+        }
+        HeroNode temp = head.next;
+        for (int i = 0; i < size - k; i++) {
+            temp = temp.next;
+        }
+        return temp;
+    }
+
+    /**
+     * 反转链表
+     *
+     * @param head
+     */
     public static void reverseList(HeroNode head) {
         if (head.next == null || head.next.next == null) {
             return;
