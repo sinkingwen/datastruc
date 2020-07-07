@@ -6,19 +6,35 @@ public class SingleLinkedListDemo {
     public static void main(String[] args) {
         HeroNode hero1 = new HeroNode(1, "宋江", "及时雨");
         HeroNode hero2 = new HeroNode(2, "卢俊义", "玉麒麟");
-        HeroNode hero3 = new HeroNode(3, "吴用", "智多星");
+        HeroNode hero3 = new HeroNode(6, "吴用", "智多星");
         HeroNode hero4 = new HeroNode(4, "林冲", "豹子头");
+
+        HeroNode h1 = new HeroNode(5, "AA", "aa");
+        HeroNode h2 = new HeroNode(7, "BB", "bb");
+        HeroNode h3 = new HeroNode(9, "CC", "cc");
+        SingleLinkedList singleLinkedList2 = new SingleLinkedList();
+        singleLinkedList2.addByOrder(h1);
+        singleLinkedList2.addByOrder(h3);
+        singleLinkedList2.addByOrder(h2);
+        System.out.println("第二次添加的节点");
+        singleLinkedList2.list();
+
 
         SingleLinkedList singleLinkedList = new SingleLinkedList();
         //添加节点
-        singleLinkedList.add(hero1);
-        singleLinkedList.add(hero3);
-        singleLinkedList.add(hero2);
-        singleLinkedList.add(hero4);
+        //按照节点顺序添加
+        singleLinkedList.addByOrder(hero1);
+        singleLinkedList.addByOrder(hero3);
+        singleLinkedList.addByOrder(hero2);
+        singleLinkedList.addByOrder(hero4);
+        System.out.println("第一次添加的节点");
         singleLinkedList.list();
 
+        mergeTwoSortedList(singleLinkedList.getHead(),singleLinkedList2.getHead());
+
+
         HeroNode knode = findLastIndexNode(singleLinkedList.getHead(), 3);
-        System.out.println("查找的节点是"+knode);
+        System.out.println("查找的节点是" + knode);
 
         System.out.println("逆序打印链表节点，不改变链表结构~");
         reversePrint(singleLinkedList.getHead());
@@ -28,13 +44,12 @@ public class SingleLinkedListDemo {
         System.out.println("反转后的链表情况~~");
         singleLinkedList.list();
 /*
-        //按照节点顺序添加
-        singleLinkedList.addByOrder(hero1);
-        singleLinkedList.addByOrder(hero3);
-        singleLinkedList.addByOrder(hero2);
-        singleLinkedList.addByOrder(hero4);
-        singleLinkedList.list();
 
+        singleLinkedList.add(hero1);
+        singleLinkedList.add(hero3);
+        singleLinkedList.add(hero2);
+        singleLinkedList.add(hero4);
+        singleLinkedList.list();
         //测试修改节点的代码
         HeroNode newNode = new HeroNode(2, "卢~", "玉麒麟~~");
         singleLinkedList.update(newNode);
@@ -49,26 +64,57 @@ public class SingleLinkedListDemo {
 
     }
 
-    public static HeroNode mergeTwoSortedList(HeroNode head1,HeroNode head2){
-
-        return head1;
+    /**
+     * 合并两个有序的单链表，合并后的链表也是有序的
+     * @param head1 有序单链表1
+     * @param head2 有序单链表2
+     */
+    public static void mergeTwoSortedList(HeroNode head1, HeroNode head2) {
+        HeroNode newHead = new HeroNode(0, "", "");
+        HeroNode temp = newHead;
+        HeroNode temp1 = head1.next;
+        HeroNode temp2 = head2.next;
+        if (temp1 == null) {
+            newHead.next = head2.next;
+        } else if (temp2 == null) {
+            newHead.next = head1.next;
+        }
+        while (temp1 != null || temp2 != null) {
+            if (temp1 == null && temp2 != null) {
+                temp.next = temp2;
+                temp2 = temp2.next;
+            } else if (temp2 == null && temp1 != null) {
+                temp.next = temp1;
+                temp1 = temp1.next;
+            } else {
+                if (temp1.no <= temp2.no) {
+                    temp.next = temp1;
+                    temp1 = temp1.next;
+                } else {
+                    temp.next = temp2;
+                    temp2 = temp2.next;
+                }
+            }
+            temp = temp.next;
+        }
     }
 
     /**
      * 从尾到头逆序打印链表节点
+     *
      * @param head 链表的头节点
      */
-    public static void reversePrint(HeroNode head){
-        if(head.next==null){
+    public static void reversePrint(HeroNode head) {
+        if (head.next == null) {
             return;
         }
         Stack<HeroNode> stack = new Stack<HeroNode>();
         HeroNode temp = head.next;
-        while (temp!=null){
+        while (temp != null) {
             stack.push(temp);
-            temp=temp.next;
+            temp = temp.next;
         }
-        while(stack.size()>0){
+        while (stack.size() > 0) {
             System.out.println(stack.pop());
         }
     }
