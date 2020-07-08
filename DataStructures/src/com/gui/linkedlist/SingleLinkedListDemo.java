@@ -28,9 +28,11 @@ public class SingleLinkedListDemo {
         singleLinkedList.addByOrder(hero2);
         singleLinkedList.addByOrder(hero4);
         System.out.println("第一次添加的节点");
-        singleLinkedList.list();
+        singleLinkedList2.list();
 
         mergeTwoSortedList(singleLinkedList.getHead(),singleLinkedList2.getHead());
+        System.out.println("合并后的链表情况~~");
+        singleLinkedList.list();
 
 
         HeroNode knode = findLastIndexNode(singleLinkedList.getHead(), 3);
