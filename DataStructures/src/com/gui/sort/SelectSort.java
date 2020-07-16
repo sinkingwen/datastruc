@@ -6,7 +6,7 @@ public class SelectSort {
     public static final int size = 100000;
     public static void main(String[] args) {
         //int[] arr = {20, 11, -6, 7, 9, 3, 11};
-        //测试大数据量情况下的冒泡排序
+        //测试大数据量情况下的选择排序
         int arr[] = new int[size];
         for (int i = 0; i < size; i++) {
             arr[i] = (int) (Math.random()*500000);//产生[0,50000)范围内的随机数
@@ -14,7 +14,7 @@ public class SelectSort {
         long s = System.currentTimeMillis();
         selectSort(arr);
         long e = System.currentTimeMillis();
-        System.out.println("Time:"+(e-s)/1000);
+        System.out.println("Time(ms):"+(e-s));
     }
 
     public static void selectSort(int[] arr) {

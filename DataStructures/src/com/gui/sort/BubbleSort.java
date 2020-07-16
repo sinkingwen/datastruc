@@ -16,7 +16,7 @@ public class BubbleSort {
         long s = System.currentTimeMillis();
         bubbleSort(arr);
         long e = System.currentTimeMillis();
-        System.out.println("Time:"+(e-s)/1000);
+        System.out.println("Time(s):"+(e-s)/1000);
 //        bubbleSort(arr);
 //        System.out.println("排序后的结果：");
 //        System.out.println(Arrays.toString(arr));
